@@ -1,8 +1,106 @@
-<h1>SNEHA</h1>
-<h2>SNEHA</h2>
-<h3>SNEHA</h3>
-<h4>SNEHA</h4>
-<h5>SNEHA</h5>
-<h6>SNEHA</h6>
-<h7>SNEHA</h7>
-<p>when we use h7 tag it considers as a paragraph</p> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Translator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
+        p { margin-top: 20px; font-size: 18px; }
+        select { font-size: 16px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Language Translator</h2>
+
+        <label for="textToTranslate">Enter Text:</label>
+        <textarea id="textToTranslate" placeholder="Type text here..."></textarea>
+
+        <label for="targetLanguage">Select Language:</label>
+        <select id="targetLanguage">
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+ <option value="de">German</option>
+            <option value="hi">Hindi</option>
+            <option value="zh-CN">Chinese</option>
+        </select>
+
+        <button onclick="translateText()">Translate</button>
+
+        <h3>Translated Text:</h3>
+        <p id="translatedText"></p>
+    </div>
+
+    <script src="script.js"></script>
+    <h1>Voice Translator</h1>
+
+    <label for="input-lang">Input Language:</label>
+    <select id="input-lang">
+        <option value="en-US">English</option>
+        <option value="es-ES">Spanish</option>
+        <option value="fr-FR">French</option>
+        <option value="de-DE">German</option>
+        <option value="hi-IN">Hindi</option>
+    </select>
+
+    <label for="output-lang">Translate To:</label>
+    <select id="output-lang">
+        <option value="es">Spanish</option>
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="hi">Hindi</option>
+    </select>
+
+    <br><br>
+    <button id="start-btn">🎤 Speak</button>
+
+    <p id="recognized-text">Recognized: <span></span></p>
+    <p id="translated-text">Translated: <span></span></p>
+
+    <script>
+        const startBtn = document.getElementById("start-btn");
+        const inputLangSelect = document.getElementById("input-lang");
+        const outputLangSelect = document.getElementById("output-lang");
+        const recognizedText = document.querySelector("#recognized-text span");
+        const translatedText = document.querySelector("#translated-text span");
+
+        let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        startBtn.addEventListener("click", () => {
+            recognition.lang = inputLangSelect.value;
+            recognition.start();
+        });
+
+        recognition.onresult = async (event) => {
+            const speech = event.results[0][0].transcript;
+            recognizedText.textContent = speech;
+
+            const targetLang = outputLangSelect.value;
+            const url = `https://api.mymemory.translated.net/get?q=${speech}&langpair=${recognition.lang.split('-')[0]}|${targetLang}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                translatedText.textContent = data.responseData.translatedText;
+            } catch (error) {
+                translatedText.textContent = "Translation failed.";
+            }
+        };
+    </script>
+</body>
+</html>
