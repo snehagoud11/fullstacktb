@@ -3,104 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Translator</title>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voice Translator</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
-        p { margin-top: 20px; font-size: 18px; }
-        select { font-size: 16px; padding: 5px; }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Translator</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h2>Language Translator</h2>
-
-        <label for="textToTranslate">Enter Text:</label>
-        <textarea id="textToTranslate" placeholder="Type text here..."></textarea>
-
-        <label for="targetLanguage">Select Language:</label>
-        <select id="targetLanguage">
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
- <option value="de">German</option>
-            <option value="hi">Hindi</option>
-            <option value="zh-CN">Chinese</option>
-        </select>
-
-        <button onclick="translateText()">Translate</button>
-
-        <h3>Translated Text:</h3>
-        <p id="translatedText"></p>
-    </div>
-
-    <script src="script.js"></script>
-    <h1>Voice Translator</h1>
-
-    <label for="input-lang">Input Language:</label>
-    <select id="input-lang">
-        <option value="en-US">English</option>
-        <option value="es-ES">Spanish</option>
-        <option value="fr-FR">French</option>
-        <option value="de-DE">German</option>
-        <option value="hi-IN">Hindi</option>
-    </select>
-
-    <label for="output-lang">Translate To:</label>
-    <select id="output-lang">
-        <option value="es">Spanish</option>
-        <option value="en">English</option>
-        <option value="fr">French</option>
-        <option value="de">German</option>
-        <option value="hi">Hindi</option>
-    </select>
-
-    <br><br>
-    <button id="start-btn">🎤 Speak</button>
-
-    <p id="recognized-text">Recognized: <span></span></p>
-    <p id="translated-text">Translated: <span></span></p>
-
-    <script>
-        const startBtn = document.getElementById("start-btn");
-        const inputLangSelect = document.getElementById("input-lang");
-        const outputLangSelect = document.getElementById("output-lang");
-        const recognizedText = document.querySelector("#recognized-text span");
-        const translatedText = document.querySelector("#translated-text span");
-
-        let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-
-        startBtn.addEventListener("click", () => {
-            recognition.lang = inputLangSelect.value;
-            recognition.start();
-        });
-
-        recognition.onresult = async (event) => {
-            const speech = event.results[0][0].transcript;
-            recognizedText.textContent = speech;
-
-            const targetLang = outputLangSelect.value;
-            const url = `https://api.mymemory.translated.net/get?q=${speech}&langpair=${recognition.lang.split('-')[0]}|${targetLang}`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                translatedText.textContent = data.responseData.translatedText;
-            } catch (error) {
-                translatedText.textContent = "Translation failed.";
-            }
-        };
-    </script>
+    <h1>Gajubomma</h1>
+    <h4>from Hi Nanna</h4>
+    <img src="cover.jpg">
+    <hr>
+    <pre>
+        Itu Raave naa gaaju bomma
+Nene naana amma
+Yedha neeku uyyaala komma
+Ninnoope cheyye prema
+Vaalipo ee gunde paine
+Aaduko ee gootilone
+Dooram pobokuma
+Chinni chinni paadhaalani
+Nelai ne moyanaa
+Chindhe kshanamlo
+Nuvu kindha padina
+Untaavu naa meedana
+Nee chenthe rendu
+Chevulunchi bayalellana
+Ye maata nee nota moginchina
+Vinuvente vintaane
+Raana nimisham lona
+Ne nanne vadilesaina
+Thulle thulle nee swaasaki
+Kaapai nenundana
+Uchwaasa naina niswaasa naina
+Melenchi pampinchana
+Yekaanthulaina avi nannu daatakane
+Aa roju cheraali nee choopune
+Nee reppai untaane
+Paapa kanti paapa
+Naa paapa kanti paapa
+Itu raave naa gaaju bomma
+Nene naana amma
+Yedha neeku uyyaala komma
+Ninnoope cheyye prema
+Vaalipo ee gunde paine
+Aaduko ee gootilone
+Dooram pobokuma
+</pre>
+<audio controls>
+    <source src="song.mp3"</audio controls>
+</audio>
+<video src="video.mp4"width="1500px"controls></video>>
+    
 </body>
 </html>
